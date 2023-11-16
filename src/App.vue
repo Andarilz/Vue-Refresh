@@ -1,6 +1,6 @@
 <script>
 
-import { ref, reactive } from "vue"
+import { ref, reactive, toRefs, toRef } from "vue"
 
 export default {
   setup(){
@@ -14,6 +14,10 @@ export default {
       obj.name = "New info"
     }
 
+    const nameAnother = toRef(obj, "name")
+
+    const { name } = toRefs(obj)
+
     const inc = () => num.value++
 
     const dec = () => num.value--
@@ -24,7 +28,9 @@ export default {
       inc,
       dec,
       obj,
-      changeObj
+      changeObj,
+      name,
+      nameAnother
     }
   }
 }
@@ -36,6 +42,10 @@ export default {
   <h4>{{ num }}</h4>
 
   <h5>Object: {{ obj.name }}</h5>
+
+  <h4>Obj: {{ name }}</h4>
+
+  <h4>Another: {{ nameAnother }}</h4>
 
   <button @click="changeObj">Change</button>
 
