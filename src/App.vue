@@ -1,6 +1,6 @@
 <script>
 
-import { ref, reactive, toRefs, toRef, computed } from "vue"
+import { ref, reactive, toRefs, toRef, computed, watch, watchEffect } from "vue"
 import Card from './components/Card.vue'
 
 export default {
@@ -10,7 +10,7 @@ export default {
     const num = ref(0)
     const obj = reactive({
       name: "Data",
-      price: 300
+      price: 2
     })
 
     const changeObj = () => {
@@ -28,6 +28,19 @@ export default {
     const doublePrice = computed(() => obj.price * 2)
 
     const priceCheck = computed(() => obj.price * 5)
+
+    watch(price, (oldPrice, newPrice) => {
+      console.log(oldPrice)
+      if(oldPrice > 5){
+        alert("Hello")
+      }
+    }, { immediate: true })
+
+    watchEffect(() => {
+      if(price > 5){
+        alert("Hi")
+      }
+    })
 
     return {
       message,
