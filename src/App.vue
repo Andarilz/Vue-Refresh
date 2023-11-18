@@ -1,13 +1,16 @@
 <script>
 
-import { ref, reactive, toRefs, toRef } from "vue"
+import { ref, reactive, toRefs, toRef, computed } from "vue"
+import Card from './components/Card.vue'
 
 export default {
+
   setup(){
     const message = ref("Hello")
     const num = ref(0)
     const obj = reactive({
-      name: "Data"
+      name: "Data",
+      price: 300
     })
 
     const changeObj = () => {
@@ -16,11 +19,15 @@ export default {
 
     const nameAnother = toRef(obj, "name")
 
-    const { name } = toRefs(obj)
+    const { name, price } = toRefs(obj)
 
     const inc = () => num.value++
 
     const dec = () => num.value--
+
+    const doublePrice = computed(() => obj.price * 2)
+
+    const priceCheck = computed(() => obj.price * 5)
 
     return {
       message,
@@ -30,16 +37,27 @@ export default {
       obj,
       changeObj,
       name,
-      nameAnother
+      nameAnother,
+      doublePrice,
+      price,
+      priceCheck
     }
-  }
+  }, components: {
+		Card
+	}
 }
 
 </script>
 
 <template>
 
-  <h4>{{ num }}</h4>
+  <h4>Price: {{ price }}</h4>
+
+  <button @click="obj.price += obj.price">Click</button>
+
+  <h3>Total: {{ priceCheck }}</h3>
+
+  <!-- <h4>{{ num }}</h4>
 
   <h5>Object: {{ obj.name }}</h5>
 
@@ -52,10 +70,21 @@ export default {
   <hr>
 
   <button @click="inc">+</button>
+
   <br>
+
   <button @click="dec">-</button>
+
+  <hr> -->
+<!--
+  <p>------------------</p>
+
+  <Card /> -->
 
 </template>
 
 <style>
+
+
+
 </style>
