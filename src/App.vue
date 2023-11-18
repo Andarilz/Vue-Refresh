@@ -7,6 +7,7 @@ export default {
 
   setup(){
     const message = ref("Hello, world from App")
+    const dataInf = ref("Leader")
     const num = ref(0)
     const obj = reactive({
       name: "Data",
@@ -42,6 +43,8 @@ export default {
       }
     })
 
+    const alertRemove = (data) => alert("Deleted from " + data)
+
     return {
       message,
       num,
@@ -53,7 +56,9 @@ export default {
       nameAnother,
       doublePrice,
       price,
-      priceCheck
+      priceCheck,
+      dataInf,
+      alertRemove
     }
   }, components: {
 		Card
@@ -94,7 +99,7 @@ export default {
 
   -->
 
-  <Card :stock="message" />
+  <Card :stock="message" :trio="dataInf" @remove="alertRemove" />
 
 </template>
 

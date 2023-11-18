@@ -8,9 +8,14 @@ export default {
 		stock: {
 			type: String,
 			required: true
+		},
+		trio: {
+			type: String,
+			required: true
 		}
 	},
-	setup(props){
+	emits: ["remove"],
+	setup(props, context){
 
 		const mess = ref("Message")
 
@@ -29,13 +34,19 @@ export default {
 
 		const propsName = props.stock
 
+		const trio = props.trio
+
+		const emitHandler = () => context.emit("remove", info.price)
+
 		return {
 			mess,
 			name,
 			info,
 			infoData,
 			changeName,
-			propsName
+			propsName,
+			trio,
+			emitHandler
 		}
 
 	}
@@ -50,6 +61,8 @@ export default {
 
 <br>
 
+<h5>{{ trio }}</h5>
+
 <p>{{ mess }}</p>
 
 <p>{{ name }}</p>
@@ -57,6 +70,10 @@ export default {
 <p>{{ infoData.price }}</p>
 
 <button @click="changeName">Click</button>
+
+<br>
+
+<button @click="emitHandler">Emit</button>
 
 </template>
 
