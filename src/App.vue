@@ -6,7 +6,7 @@ import Card from './components/Card.vue'
 export default {
 
   setup(){
-    const message = ref("Hello")
+    const message = ref("Hello, world from App")
     const num = ref(0)
     const obj = reactive({
       name: "Data",
@@ -64,11 +64,11 @@ export default {
 
 <template>
 
-  <h4>Price: {{ price }}</h4>
+  <!-- <h4>Price: {{ price }}</h4>
 
   <button @click="obj.price += obj.price">Click</button>
 
-  <h3>Total: {{ priceCheck }}</h3>
+  <h3>Total: {{ priceCheck }}</h3> -->
 
   <!-- <h4>{{ num }}</h4>
 
@@ -92,7 +92,9 @@ export default {
 <!--
   <p>------------------</p>
 
-  <Card /> -->
+  -->
+
+  <Card :stock="message" />
 
 </template>
 

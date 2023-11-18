@@ -4,7 +4,13 @@ import { ref, reactive, toRef, toRefs } from "vue"
 
 export default {
 
-	setup(){
+	props: {
+		stock: {
+			type: String,
+			required: true
+		}
+	},
+	setup(props){
 
 		const mess = ref("Message")
 
@@ -21,12 +27,15 @@ export default {
 			info.price = 200
 		}
 
+		const propsName = props.stock
+
 		return {
 			mess,
 			name,
 			info,
 			infoData,
-			changeName
+			changeName,
+			propsName
 		}
 
 	}
@@ -37,7 +46,9 @@ export default {
 
 <template>
 
-<h4>Hello, world</h4>
+<h4>{{ propsName }}</h4>
+
+<br>
 
 <p>{{ mess }}</p>
 
