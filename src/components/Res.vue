@@ -1,16 +1,22 @@
 <template>
   <div>
-    <p>{{ greeting }}</p>
-    <button @click="removeComponent">Удалить компонент</button>
+    <!-- <p>{{ greeting }}</p> -->
+		<ul>
+			<li v-for="item in items">{{ item.name }}</li>
+		</ul>
+    <!-- <button @click="removeComponent">Удалить компонент</button> -->
+		<button @click="addIvan">Add</button>
   </div>
 </template>
 
 <script>
 import { ref, onUnmounted } from 'vue';
+import useData from "../services/Data"
 
 export default {
   setup() {
     const greeting = ref('Привет! Это компонент Vue');
+		const { items, addItems } = useData()
 
     onUnmounted(() => {
       console.log('Компонент размонтирован!');
@@ -20,9 +26,15 @@ export default {
       console.log('Удаление компонента');
     };
 
+		const addIvan = () => {
+			addItems({name: "Ivan"})
+		}
+
     return {
       greeting,
-      removeComponent
+      removeComponent,
+			items,
+			addIvan
     };
   }
 };
