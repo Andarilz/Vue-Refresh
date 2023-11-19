@@ -1,6 +1,6 @@
 <script>
 
-import { ref, reactive, toRef, toRefs } from "vue"
+import { ref, reactive, toRef, toRefs, onMounted, onUnmounted, onUpdated } from "vue"
 
 export default {
 
@@ -12,9 +12,12 @@ export default {
 		trio: {
 			type: String,
 			required: true
+		},
+		del: {
+			type: Array
 		}
 	},
-	emits: ["remove"],
+	emits: ["remove", "another-remove"],
 	setup(props, context){
 
 		const mess = ref("Message")
@@ -38,6 +41,10 @@ export default {
 
 		const emitHandler = () => context.emit("remove", info.price)
 
+		const anotherEmitter = () => context.emit("another-remove", name.value)
+
+		const del = props.del
+
 		return {
 			mess,
 			name,
@@ -46,7 +53,9 @@ export default {
 			changeName,
 			propsName,
 			trio,
-			emitHandler
+			emitHandler,
+			anotherEmitter,
+			del
 		}
 
 	}
@@ -56,6 +65,16 @@ export default {
 </script>
 
 <template>
+<!--
+<ul>
+    <li v-for="d in del">{{ d.price }}</li>
+</ul>
+
+<hr> -->
+
+<ul>
+    <li v-for="d in del">Удаленная инфа - {{ d.price }}</li>
+  </ul>
 
 <h4>{{ propsName }}</h4>
 
@@ -74,6 +93,10 @@ export default {
 <br>
 
 <button @click="emitHandler">Emit</button>
+
+<br>
+
+<button @click="anotherEmitter">Another emitter</button>
 
 </template>
 

@@ -1,6 +1,6 @@
 <script>
 
-import { ref, reactive, toRefs, toRef, computed, watch, watchEffect } from "vue"
+import { ref, reactive, toRefs, toRef, computed, watch, watchEffect, onUnmounted, onMounted, onUpdated } from "vue"
 import Card from './components/Card.vue'
 
 export default {
@@ -13,6 +13,16 @@ export default {
       name: "Data",
       price: 2
     })
+
+    const del = ref([
+      {
+        price: 100,
+        name: "Info"
+      },
+      {
+        price: 200
+      }
+    ])
 
     const changeObj = () => {
       obj.name = "New info"
@@ -43,7 +53,17 @@ export default {
       }
     })
 
-    const alertRemove = (data) => alert("Deleted from " + data)
+    const alertRemove = () => del.value.splice(0, 1)
+
+    const anotherAlert = (data) => alert("Info from " + data)
+
+    onUnmounted(() => {
+      console.log("Deleted")
+    })
+
+    onUpdated(() => {
+      console.log("Up")
+    })
 
     return {
       message,
@@ -58,7 +78,9 @@ export default {
       price,
       priceCheck,
       dataInf,
-      alertRemove
+      alertRemove,
+      anotherAlert,
+      del
     }
   }, components: {
 		Card
@@ -75,15 +97,15 @@ export default {
 
   <h3>Total: {{ priceCheck }}</h3> -->
 
-  <!-- <h4>{{ num }}</h4>
+   <h4>{{ num }}</h4>
 
-  <h5>Object: {{ obj.name }}</h5>
+  <!-- <h5>Object: {{ obj.name }}</h5>
 
   <h4>Obj: {{ name }}</h4>
 
   <h4>Another: {{ nameAnother }}</h4>
 
-  <button @click="changeObj">Change</button>
+  <button @click="changeObj">Change</button> -->
 
   <hr>
 
@@ -93,13 +115,20 @@ export default {
 
   <button @click="dec">-</button>
 
-  <hr> -->
+  <hr>
 <!--
   <p>------------------</p>
 
   -->
 
-  <Card :stock="message" :trio="dataInf" @remove="alertRemove" />
+  <ul>
+    <li v-for="d in del">Удаленная инфа - {{ d.price }}</li>
+  </ul>
+
+  <hr>
+
+
+  <Card v-if="num < 5" :stock="message" :trio="dataInf" @remove="alertRemove" @another-remove="anotherAlert" :del="del" />
 
 </template>
 
