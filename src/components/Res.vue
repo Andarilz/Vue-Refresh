@@ -6,11 +6,13 @@
 		</ul>
     <!-- <button @click="removeComponent">Удалить компонент</button> -->
 		<button @click="addIvan">Add</button>
+		<br>
+		<button @click="changeName">Change name</button>
   </div>
 </template>
 
 <script setup>
-	import { onUnmounted, onMounted, onUpdated, defineProps } from 'vue';
+	import { onUnmounted, onMounted, onUpdated, defineProps, defineEmits } from 'vue';
 	import useData from "../services/Data"
 
 		const props = defineProps({
@@ -19,7 +21,13 @@
 			}
 		})
 
+		const emit = defineEmits(["change"])
+
 		const { items, addItems } = useData()
+
+		const changeName = () => {
+			emit("change")
+		}
 
     onUnmounted(() => {
       console.log('Компонент размонтирован!');
