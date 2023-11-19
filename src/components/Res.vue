@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { ref, onUnmounted } from 'vue';
+import { ref, onUnmounted, onMounted, onUpdated } from 'vue';
 import useData from "../services/Data"
 
 export default {
@@ -20,11 +20,19 @@ export default {
 
     onUnmounted(() => {
       console.log('Компонент размонтирован!');
-    });
+    })
+
+		onMounted(() => {
+			console.log("Компонент смонтирован")
+		})
+
+		onUpdated(() => {
+			console.log("Компонент изменен")
+		})
 
     const removeComponent = () => {
       console.log('Удаление компонента');
-    };
+    }
 
 		const addIvan = () => {
 			addItems({name: "Ivan"})
