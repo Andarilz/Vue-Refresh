@@ -1,7 +1,7 @@
 <template>
   <div>
     <button @click="toggleComponent">Показать/скрыть компонент</button>
-    <Res v-if="showComponent" :hello="info" @change="rename" />
+    <Res v-if="showComponent" :hello="info" @change="nameNew" />
   </div>
 </template>
 
@@ -19,6 +19,6 @@ import Res from './components/Res.vue'
 
   const info = ref("World of warcraft")
 
-  const rename = () => info.value = "Lineage 2"
+  const nameNew = () => info.value = "RDR 2"
 
 </script>

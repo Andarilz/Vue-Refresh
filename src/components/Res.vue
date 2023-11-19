@@ -12,21 +12,22 @@
 </template>
 
 <script setup>
-	import { onUnmounted, onMounted, onUpdated, defineProps, defineEmits } from 'vue';
+	import { onUnmounted, onMounted, onUpdated, defineProps } from 'vue';
 	import useData from "../services/Data"
 
-		const props = defineProps({
-			hello: {
-				type: String
-			}
-		})
+	const props = defineProps({
+		hello: {
+			type: String,
+			default: "Game"
+		}
+	})
 
-		const emit = defineEmits(["change"])
+		const emits = defineEmits(["change"])
 
 		const { items, addItems } = useData()
 
 		const changeName = () => {
-			emit("change")
+			emits("change")
 		}
 
     onUnmounted(() => {
