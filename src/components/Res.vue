@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <p>{{ greeting }}</p> -->
+    <p>{{ hello }}</p>
 		<ul>
 			<li v-for="item in items">{{ item.name }}</li>
 		</ul>
@@ -9,13 +9,16 @@
   </div>
 </template>
 
-<script>
-import { ref, onUnmounted, onMounted, onUpdated } from 'vue';
-import useData from "../services/Data"
+<script setup>
+	import { onUnmounted, onMounted, onUpdated, defineProps } from 'vue';
+	import useData from "../services/Data"
 
-export default {
-  setup() {
-    const greeting = ref('Привет! Это компонент Vue');
+		const props = defineProps({
+			hello: {
+				type: String
+			}
+		})
+
 		const { items, addItems } = useData()
 
     onUnmounted(() => {
@@ -38,12 +41,4 @@ export default {
 			addItems({name: "Ivan"})
 		}
 
-    return {
-      greeting,
-      removeComponent,
-			items,
-			addIvan
-    };
-  }
-};
 </script>

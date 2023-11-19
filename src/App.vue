@@ -1,29 +1,22 @@
 <template>
   <div>
     <button @click="toggleComponent">Показать/скрыть компонент</button>
-    <Res v-if="showComponent" />
+    <Res v-if="showComponent" :hello="info" />
   </div>
 </template>
 
-<script>
+<script setup>
+
 import { ref } from 'vue';
-import Res from './components/Res.vue';
 
-export default {
-  components: {
-    Res
-  },
-  setup() {
-    const showComponent = ref(true);
+import Res from './components/Res.vue'
 
-    const toggleComponent = () => {
-      showComponent.value = !showComponent.value;
-    };
+  const showComponent = ref(true);
 
-    return {
-      showComponent,
-      toggleComponent
-    };
-  }
-};
+  const toggleComponent = () => {
+    showComponent.value = !showComponent.value;
+  };
+
+  const info = ref("World of warcraft")
+
 </script>
